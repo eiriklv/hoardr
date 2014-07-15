@@ -16,7 +16,7 @@ exports = module.exports = function (services) {
                 });
             }
         ], function (err, authorized) {
-            if (err) return res.send(500, { error: err });
+            if (err) return res.send(401, { error: err });
 
             // get authenticated either by session or access-token
             if (authorized) {
