@@ -66,9 +66,8 @@
   },
   "scripts": {
     "test": "node_modules/.bin/mocha recursive -R spec",
-    "postinstall": "npm run build && npm run rejoice",
+    "postinstall": "npm run build",
     "build": "gulp build",
-    "rejoice": "echo yay!",
     "start": "node app.js"
   },
   "author": "Eirik Vullum <eirik@evconsult.no> (http://www.evconsult.no/)",
