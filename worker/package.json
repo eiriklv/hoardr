@@ -12,8 +12,7 @@
     "convict": "~0.4.2",
     "mongoose": "~3.8.12",
     "redis": "~0.10.3",
-    "debug": "^1.0.3",
-    "node-read": "~0.1.4"
+    "debug": "^1.0.3"
   },
   "author": "Eirik Vullum <eirik@evconsult.no>",
   "license": "MIT"

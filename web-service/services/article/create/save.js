@@ -5,7 +5,8 @@ exports = module.exports = function (models, helpers, ipc) {
         var input = {
             title: article.title,
             content: article.content,
-            createdAt: new Date()
+            createdAt: new Date(),
+            processed: false
         };
 
         if (article.image) input.image = article.image;

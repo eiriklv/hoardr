@@ -18,7 +18,13 @@ exports = module.exports = function (collection, mongoose, validators) {
         },
         createdAt: {
             type: Date,
-            default: Date.now
+            default: Date.now,
+            required: true
+        },
+        processed: {
+            type: Boolean,
+            default: false,
+            required: true
         }
     });
 
