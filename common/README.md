@@ -1,4 +1,7 @@
 Hoardr common modules
 =====================
 
-TODO: readme
+#### contains:
+* models
+* helpers
+* ipc (eventemitter)

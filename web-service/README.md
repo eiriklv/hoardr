@@ -1,46 +1,5 @@
-Hoardr Web Saver
-================
-
-[![Build Status](https://travis-ci.org/eiriklv/express-passport-app.svg?branch=master)](https://travis-ci.org/eiriklv/express-passport-app)
-[![Coverage Status](https://coveralls.io/repos/eiriklv/express-passport-app/badge.png)](https://coveralls.io/r/eiriklv/express-passport-app)
-[![Dependency Status](https://david-dm.org/eiriklv/express-passport-app.svg)](https://david-dm.org/eiriklv/express-passport-app)
-[![devDependency Status](https://david-dm.org/eiriklv/express-passport-app/dev-status.svg)](https://david-dm.org/eiriklv/express-passport-app#info=devDependencies)
-
-#### Introduction:
-This project will give you a complete scaffolding/boilerplate of the [node](http://www.nodejs.org/)/[express](http://www.expressjs.com/) stack along with social logins through [passport]() and email verification through [mandrill](http://www.mandrill.com). It uses [mongodb](http://www.mongodb.org/) for database models and [redis](http://www.redis.io/) for session storage. Fork at will! :)
-
-![express passport application](http://s29.postimg.org/6zbwl1fnb/preview.png "Express Passport Application")
-
-#### Built with:
-* [node.js](http://www.nodejs.org/)
-* [express](http://www.expressjs.com/)
-* [passport](http://www.passportjs.org/)
-* [gulp](http://www.gulpjs.com/)
-* [socket.io](http://www.socket.io/)
-* [convict](http://github.com/mozilla/node-convict/)
-* [browserify](http://www.browserify.org/)
- * [hbsfy](http://github.com/epeli/node-hbsfy/)
- * [envify](http://github.com/hughsk/envify/)
-* [handlebars](http://handlebarsjs.com/)
-* [stylus](http://learnboost.github.io/stylus/)
- * [nib](http://visionmedia.github.io/nib/)
-* [bootstrap](http://getbootstrap.com/)
-* [fontawesome](http://fortawesome.github.io/Font-Awesome/)
-* [jquery](http://www.jquery.com/)
-
-#### Testing:
-* [mocha](http://visionmedia.github.io/mocha/)
-* [chai](http://chaijs.com/)
-* [sinon](http://sinonjs.org/)
-
-#### Dependencies:
-* [nodejs](http://www.nodejs.org/)
-* [mongodb](http://www.mongodb.org/)
-* [redis](http://redis.io/)
-
-#### Social logins supported:
-* [facebook](http://developers.facebook.com/)
-* [google+](http://developers.google.com/+/)
+Hoardr - Web Interface
+======================
 
 #### Install dependencies (some might need to use `sudo` for various reasons):
 * `brew/apt-get install nodejs`
@@ -111,12 +70,18 @@ This project will give you a complete scaffolding/boilerplate of the [node](http
 #### Development shellscript example:
 ```sh
 #!/bin/sh
+
 export PORT=3000 \
-export SERVICE_NAME="Express Passport Application" \
+# override port if argument is present
+if [ $1 ]; then
+   export PORT=$1
+fi
+
+export SERVICE_NAME="Hoardr Web Service" \
 export DEBUG="*" \
 export NODE_ENV="development" \
 export CLIENT_API_PATH="/api" \
-export MONGO_URL="mongodb://localhost/express-passport-app" \
+export MONGO_URL="mongodb://localhost/hoardr" \
 export REDIS_URL="redis://localhost:6379" \
 export REDIS_DB=0 \
 export REDIS_SESSION_PREFIX="sess:" \
@@ -129,18 +94,8 @@ export GOOGLE_CLIENT_ID="000000000000000000000000000000.apps.googleusercontent.c
 export GOOGLE_CLIENT_SECRET="000000000000000000000000000000" \
 export GOOGLE_CALLBACK_URL="http://localhost:3000/auth/google/callback" \
 export MANDRILL_API_KEY="000000000000000000000000000000" \
-export MANDRILL_SENDER="Express Passport Application <noreply@expresspassportapp.com>" \
+export MANDRILL_SENDER=" <noreply@expresspassportapp.com>" \
 export EMAIL_VERIFICATION_ROUTE="http://localhost:3000/auth/local/verify" \
 
-gulp
+gulp test && gulp
 ```
-
-#### TODO
-* upgrade to socket.io 1.x
-* ~~continuous integration with [travis](http://www.travis-ci.org/)~~
-* add test coverage with [coveralls.io](http://www.coveralls.io/)
-* ~~add unit test framework~~
-* look into using [jest](http://facebook.github.io/jest/) for testing
-* add complete test suite
-* replace jquery with [react](http://facebook.github.io/react/) or [mithril](http://lhorie.github.io/mithril/)
-* build simple client side example with the selected framework

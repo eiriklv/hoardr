@@ -2,6 +2,8 @@ var async = require('async');
 
 exports = module.exports = function (models, helpers, ipc) {
     return function (userId, url, update, callback) {
+        var options = {};
+
         async.waterfall([
         function (callback) {
             models.Article.findByIdAndUpdate(url, update, options, function (err, product) {

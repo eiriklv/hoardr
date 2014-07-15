@@ -6,13 +6,14 @@ var async = require('async');
 
 exports = module.exports = function (ipc, services, helpers) {
     function doWorkOnItem (data) {
-        debug('scraping site...'.green);
+        debug('processing article...'.green);
         debug(util.inspect(data));
 
         async.waterfall([
         // do some work on item
         function (callback) {
             var update = { processed: true };
+            callback(null, update);
         },
         // save the article
         function (update, callback) {
