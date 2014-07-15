@@ -1,4 +1,0 @@
-Hoardr bookmarklet
-==================
-
-TODO: readme
