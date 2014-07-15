@@ -1,0 +1,16 @@
+{{#each this}}
+    <li id="{{this._id}}" class="media well">
+        <a class="pull-left" href="/article/{{urlencode this._id}}">
+            <img
+                class="media-object"
+                alt="{{this.title}}"
+                src="{{#if this.image}}{{this.image}}{{else}}http://lorempixel.com/64/64/{{/if}}"
+                style="width: 64px; height: 64px;">
+        </a>
+
+        <div class="media-body">
+            <h4 class="media-heading"><a href="/article/{{urlencode this._id}}">{{this.title}}</a></h4>
+            <a href="{{this._id}}">Visit the original</a>
+        </div>
+    </li>
+{{/each}}

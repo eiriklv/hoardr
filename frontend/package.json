@@ -1,0 +1,72 @@
+{
+  "name": "hoardr-web-saver-frontend",
+  "main": "app.js",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "version": "0.0.1",
+  "description": "hoardr frontend module",
+  "dependencies": {
+    "express": "~4.5.0",
+    "morgan": "~1.1.1",
+    "body-parser": "~1.4.3",
+    "cookie-parser": "~1.3.1",
+    "express-session": "~1.6.3",
+    "serve-favicon": "~2.0.1",
+    "errorhandler": "~1.1.0",
+    "method-override": "~2.0.2",
+    "connect-redis": "~2.0.0",
+    "hbs": "~2.7.0",
+    "socket.io": "~0.9.17",
+    "socket.io-client": "~0.9.17",
+    "session.socket.io-express4": "0.0.x",
+    "request": "~2.36.0",
+    "colors": "~0.6.2",
+    "async": "~0.9.0",
+    "debug": "~1.0.2",
+    "mongoose": "~3.8.12",
+    "passport": "~0.2.0",
+    "passport-local": "~1.0.0",
+    "passport-facebook": "~1.0.3",
+    "passport-google-oauth": "~0.1.5",
+    "express-flash": "~0.0.2",
+    "bcryptjs": "~1.0.1",
+    "stylus": "~0.47.1",
+    "convict": "~0.4.2",
+    "validator": "~3.16.0",
+    "superagent": "^0.18.0",
+    "mandrill-send": "~0.1.0",
+    "redis": "~0.11.0"
+  },
+  "devDependencies": {
+    "browserify": "~4.2.0",
+    "vinyl-source-stream": "~0.1.1",
+    "gulp": "~3.8.0",
+    "gulp-stylus": "~1.0.2",
+    "gulp-notify": "~1.4.0",
+    "gulp-nodemon": "~1.0.4",
+    "gulp-mocha": "~0.4.1",
+    "nib": "~1.0.2",
+    "hbsfy": "~1.3.2",
+    "envify": "~2.0.0",
+    "mocha": "~1.20.1",
+    "chai": "~1.9.1",
+    "sinon": "~1.10.2",
+    "sinon-chai": "~2.5.0",
+    "mockgoose": "~1.10.0",
+    "coveralls": "~2.11.0",
+    "mocha-lcov-reporter": "0.0.1"
+  },
+  "browserify": {
+    "transform": [
+      "hbsfy",
+      "envify"
+    ]
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha recursive -R spec",
+    "develop": "sh dev.sh"
+  },
+  "author": "Eirik Vullum <eirik@evconsult.no> (http://www.evconsult.no/)",
+  "license": "MIT"
+}
