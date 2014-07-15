@@ -136,3 +136,9 @@ export EMAIL_VERIFICATION_ROUTE="http://localhost:3000/auth/local/verify" \
 
 gulp test && gulp
 ```
+
+#### TODO
+* UI design needs work
+* tagging of articles
+* better content aggregation (fork node-read and adjust for specific needs)
+* lots more..
