@@ -1,4 +1,0 @@
-Hoardr backend
-==============
-
-TODO: readme

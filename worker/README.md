@@ -1,0 +1,4 @@
+Hoardr worker
+=============
+
+TODO: readme

@@ -1,11 +1,11 @@
 {
-  "name": "hoardr-web-saver-frontend",
+  "name": "hoardr-web-service",
   "main": "app.js",
   "engines": {
     "node": "0.10.x"
   },
   "version": "0.0.1",
-  "description": "hoardr frontend module",
+  "description": "hoardr web interface backend/frontend",
   "dependencies": {
     "express": "~4.5.0",
     "morgan": "~1.1.1",
