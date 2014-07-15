@@ -1,5 +1,5 @@
 exports = module.exports = function (models, helpers, ipc) {
     return {
-        add: require('./add')(models, helpers, ipc)
+        update: require('./update')(models, helpers, ipc)
     };
 };

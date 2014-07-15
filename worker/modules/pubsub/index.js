@@ -28,6 +28,7 @@ exports = module.exports = function (rpc, ipc) {
 
     // publish (stringify the data and send it via redis) (since this will only be run once, we don't need to name the callback function or remove it)
     ipc.on('update', function (data) {
+        debug('sending update over rpc');
         rpc.publisher.publish('update', JSON.stringify(data)); // publish to redis rpc
     });
 

@@ -5,26 +5,19 @@ var read = require('node-read');
 var async = require('async');
 
 exports = module.exports = function (ipc, services, helpers) {
-    function scrapeUrl (data) {
-        debug('scraping site...'.green);
+    function doWorkOnItem (data) {
+        debug('processing article...'.green);
         debug(util.inspect(data));
 
         async.waterfall([
-        // get url content
+        // do some work on item
         function (callback) {
-            read(data.url, function (err, article, res) {
-                callback(err, article);
-            });
-        },
-        // get meta image and set url
-        function (article, callback) {
-            article.image = helpers.common.getMetaImage(article.dom, data.url);
-            article.url = data.url;
-            callback(null, article);
+            var update = { processed: true };
+            callback(null, update);
         },
         // save the article
-        function (article, callback) {
-            services.article.add(data.id, data.url, article, function (err, product) {
+        function (update, callback) {
+            services.article.update(data.id, data.url, update, function (err, product) {
                 callback(err, product);
             });
         }
@@ -35,5 +28,5 @@ exports = module.exports = function (ipc, services, helpers) {
         });
     }
 
-    ipc.on('add', scrapeUrl);
+    ipc.on('add', doWorkOnItem);
 };

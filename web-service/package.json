@@ -36,7 +36,8 @@
     "validator": "~3.16.0",
     "superagent": "^0.18.0",
     "mandrill-send": "~0.1.0",
-    "redis": "~0.11.0"
+    "redis": "~0.11.0",
+    "node-read": "~0.1.4"
   },
   "devDependencies": {
     "browserify": "~4.2.0",
