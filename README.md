@@ -4,6 +4,9 @@ Hoardr - Save your stuff from the web!
 #### Introduction:
 Hoardr is a self hosted open source (basic) alternative to [pocket](http://www.getpocket.com)
 
+#### Live preview:
+[Hoardr.in](http://www.hoardr.in)
+
 ![preview](http://s28.postimg.org/3x94ttr3x/preview.png)
 
 #### Built with:
