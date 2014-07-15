@@ -1,9 +1,16 @@
 <div id="main" class="container">
+    {{#with article.image}}
+    <div>
+        <img class="thumbnail" src="{{this}}" style="width:100%;">
+    </div>
+    {{/with}}
+
     <div class="well text-center">
         <h2>{{article.title}}</h2>
         <a href="{{article._id}}">Visit the original</a>
     </div>
-    <div class="well">
+
+    <div id="content" class="well">
         {{{article.content}}}
     </div>
 </div>

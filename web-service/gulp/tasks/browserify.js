@@ -34,6 +34,12 @@ gulp.task('browserify', function () {
             destination: './client/public/javascript/'
         },
         {
+            input: ['./client/javascript/article.js'],
+            output: 'article.js',
+            extensions: ['.handlebars'],
+            destination: './client/public/javascript/'
+        },
+        {
             input: ['./client/javascript/bookmarklet.js'],
             output: 'bookmarklet.js',
             extensions: ['.handlebars'],

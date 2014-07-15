@@ -11,8 +11,8 @@ var templates = require('./templates')();
 var messages = require('./modules/common/messages')();
 
 // application
-var app = require('./modules/home/app')(templates, api, io); // this could be the main app
+var app = require('./modules/article/app')(templates, api, io); // this could be the main app
 
 // debug
-console.log('home app started');
+console.log('article app started');
 console.log(config);
