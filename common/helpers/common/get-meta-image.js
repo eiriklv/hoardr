@@ -1,3 +1,5 @@
+var url = require('url');
+
 exports = module.exports = function () {
     return function ($, link) {
         var meta = $('meta');

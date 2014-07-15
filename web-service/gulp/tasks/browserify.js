@@ -50,6 +50,12 @@ gulp.task('browserify', function () {
             output: 'profile.js',
             extensions: ['.handlebars'],
             destination: './client/public/javascript/'
+        },
+        {
+            input: ['./client/javascript/setnavigation.js'],
+            output: 'setnavigation.js',
+            extensions: ['.handlebars'],
+            destination: './client/public/javascript/'
         }
     ]);
 });

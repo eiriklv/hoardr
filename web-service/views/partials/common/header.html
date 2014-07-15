@@ -1,9 +1,26 @@
-<div class="container">
-    <div class="page-header text-center">
-        <h1><span class="fa {{icon}}"></span> {{title}} for {{user.fullname}}</h1>
-        <a href="/home" class="btn btn-default btn-sm">My Stash</a>
-        <a href="/bookmarklet" class="btn btn-default btn-sm">Bookmarklet</a>
-        <a href="/profile" class="btn btn-default btn-sm">Profile</a>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hoardr.in</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li id="nav-home"><a href="/home">My Stash</a>
+                </li>
+                <li id="nav-bookmarklet"><a href="/bookmarklet">Bookmarklet</a>
+                </li>
+                <li id="nav-profile"><a href="/profile">Profile</a>
+                </li>
+                <li><a href="/logout">Sign Out - {{user.fullname}}</a>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
     </div>
-</div>
+</nav>

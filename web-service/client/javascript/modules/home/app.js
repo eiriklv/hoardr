@@ -1,6 +1,43 @@
 exports = module.exports = function (templates, api, io) {
     var socket = io.connect();
 
+    function bindToEvent(options) {
+        var parent = $(options.element);
+        parent.on(options.eventType, options.elementType, function(event) {
+            event.preventDefault();
+
+            console.log('click');
+
+            var element = $(event.target);
+            var action = element.attr('data-action');
+
+            if (options.handlers[action]) options.handlers[action](element, parent, options.templates);
+        });
+    }
+
+    // bind event handlers to the button panel
+    bindToEvent({
+        element: '#main',
+        eventType: 'click',
+        elementType: '.close',
+        templates: templates,
+        handlers: {
+            delete: function(target, parent, templates) {
+                alertify.confirm('Are you sure you want to delete the article?', function (e) {
+                    if (e) {
+                        api.article.remove({
+                            url: target.parent().attr('data-url')
+                        }, function (err, result) {
+                            if (err) return alertify.error('Could not delete article: ' + err);
+                            target.parent().remove();
+                            alertify.success('Article deleted');
+                        });
+                    }
+                });
+            }
+        }
+    });
+
     function updateList () {
         api.article.get(null, function (err, data) {
             if (err) return alertify.error(err);

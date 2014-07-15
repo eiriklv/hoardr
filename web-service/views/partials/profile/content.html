@@ -1,1 +1,43 @@
-<div id="main" class="container"></div>
+<div id="main" class="container">
+    <div id="account-data">
+        <!-- facebook -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Facebook</h3>
+            </div>
+            <div class="panel-body text-center">
+                {{#if user.facebook.token}}
+                <a href="/auth/facebook/unlink" class="btn btn-primary">Unlink Account</a>
+                {{else}}
+                <a href="/auth/facebook/connect" class="btn btn-primary">Connect Account</a>
+                {{/if}}
+            </div>
+        </div>
+
+        <!-- google -->
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">Google</h3>
+            </div>
+            <div class="panel-body text-center">
+                {{#if user.google.token}}
+                <a href="/auth/google/unlink" class="btn btn-danger">Unlink Account</a>
+                {{else}}
+                <a href="/auth/google/connect" class="btn btn-danger">Connect Account</a>
+                {{/if}}
+            </div>
+        </div>
+
+        <!-- local -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Hoardr Account</h3>
+            </div>
+            <div id="button-panel" class="panel-body text-center">
+                <button type="button" class="btn btn-default" data-action="update" data-toggle="modal">Options</button>
+                <button type="button" class="btn btn-default" data-action="delete">Delete Me</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,12 +1,38 @@
 <div id="main" class="container text-center">
-    <h2>For mobile and tablet</h2>
-    <form role="form">
-        <input type="text" class="form-control" value="{{> bookmarklet-script }}">
-        <span class="help-block">Copy this text and replace your newly created bookmark with it</span>
-    </form>
 
-    <h2>For desktop</h2>
-    <a id="hoardrBookmarket" class="btn btn-success btn-lg" href="{{> bookmarklet-script }}">
-    Hoard it!
-    </a>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">For desktop</h3>
+        </div>
+        <div class="panel-body">
+            <a id="hoardrBookmarket" class="btn btn-success btn-lg" href="{{> bookmarklet-script }}">Hoard it!</a>
+            <p style="margin-top: 15px">Drag the above button to your bookmarks bar to start hoarding</p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">For mobile and tablet</h3>
+        </div>
+        <div class="panel-body panel-primary">
+            <form role="form">
+                <input type="text" class="form-control" value="{{> bookmarklet-script }}">
+            </form>
+            <ul id="guide" class="text-center" style="list-style: none; padding: 15px 0px 0px 0px;">
+                <li>Create a bookmark on your phone for this page</li>
+                <li><img src="/images/bookmarklet/step1-1.png"></li>
+                <li><img src="/images/bookmarklet/step1-2.png"></li>
+                <li><img src="/images/bookmarklet/step1-3.png"></li>
+                <li>Copy the text from the input box above (the javascript stuff..)</li>
+                <li><img src="/images/bookmarklet/step2-1.png"></li>
+                <li><img src="/images/bookmarklet/step2-2.png"></li>
+                <li>Edit your newly created bookmark and paste the text you copied into the address field</li>
+                <li><img src="/images/bookmarklet/step3-1.png"></li>
+                <li><img src="/images/bookmarklet/step3-2.png"></li>
+                <li><img src="/images/bookmarklet/step3-3.png"></li>
+                <li>Use the bookmark whenever you find something you want to save. Start hoarding!</li>
+            </ul>
+        </div>
+    </div>
+
 </div>

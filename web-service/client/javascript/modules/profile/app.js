@@ -1,28 +1,14 @@
-exports = module.exports = function (templates, api) {
+exports = module.exports = function(templates, api) {
 
-    function bindToEvent (options) {
+    function bindToEvent(options) {
         var parent = $(options.element);
-        parent.on(options.eventType, options.elementType, function (event) {
+        parent.on(options.eventType, options.elementType, function(event) {
             event.preventDefault();
 
             var element = $(event.target);
             var action = element.attr('data-action');
 
-            if(options.handlers[action]) options.handlers[action](element, parent, options.templates);
-        });
-    }
-
-    function loadProfileData (container) {
-        $(container)
-            .empty()
-            .append(templates.common.spinner());
-
-        api.profile.get(function (err, user) {
-            $(container)
-                .empty()
-                .append(templates.profile.data({
-                    user: user
-                }));
+            if (options.handlers[action]) options.handlers[action](element, parent, options.templates);
         });
     }
 
@@ -33,13 +19,20 @@ exports = module.exports = function (templates, api) {
         elementType: '.btn',
         templates: templates,
         handlers: {
-            update: function (target, parent, templates) {
-                api.profile.get(function (err, user) {
+            update: function(target, parent, templates) {
+                api.profile.get(function(err, user) {
                     if (err) return console.log(err);
 
-                    var renderedData = templates.profile.modal.edit({ user: user });
+                    var renderedData = templates.profile.modal.edit({
+                        user: user
+                    });
                     $('#action-modal').empty().append(renderedData).modal();
                 });
+            },
+            delete: function(target, parent, templates) {
+                alertify.prompt('Are you sure you want to delete your account? Type \'12345678\' to confirm', function (e, str) {
+                    if (e && (str === '12345678')) window.location = '/auth/local/unlink';
+                }, '');
             }
         }
     });
@@ -51,12 +44,12 @@ exports = module.exports = function (templates, api) {
         elementType: '.btn',
         templates: templates,
         handlers: {
-            update: function (target, parent, templates) {
+            update: function(target, parent, templates) {
                 target.empty().append(templates.common.loader());
 
                 var body = $('form', parent).serializeObject();
 
-                api.profile.update(body, function (err, user) {
+                api.profile.update(body, function(err, user) {
                     if (err) {
                         alertify.error(err);
                         target.empty().append('Update Profile');
@@ -71,6 +64,4 @@ exports = module.exports = function (templates, api) {
         }
     });
 
-    // init the app
-    loadProfileData('#main');
 };
