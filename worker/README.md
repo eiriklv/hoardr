@@ -26,9 +26,8 @@ Hoardr - Worker
 
 #### Run the application:
 * set environment variables
-* `gulp`
+* `node app`
 * alternatively create a shellscript for the above (for development)
-* navigate your browser to `http://localhost:PORT`
 
 #### Development shellscript example:
 ```sh
