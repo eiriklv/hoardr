@@ -9,7 +9,15 @@ javascript:(function(e, a, g, h, f, c, b, d) {
                 f(c).remove();
             }
         };
-        a.documentElement.childNodes[0].appendChild(c);
+        var nodes = a.documentElement.childNodes;
+        var wantedNode;
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].nodeType == 1) {
+                wantedNode = nodes[i];
+                break;
+            }
+        }
+        wantedNode.appendChild(c);
     }
 })(window, document, '1.11.0', function($, L) {
     var userId = '{{user.id}}';
