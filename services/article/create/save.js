@@ -9,6 +9,8 @@ exports = module.exports = function (models, helpers, ipc) {
             processed: false
         };
 
+        url = decodeURIComponent(url);
+
         if (article.image) input.image = article.image;
 
         var options = {
