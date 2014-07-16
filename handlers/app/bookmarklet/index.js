@@ -1,9 +1,10 @@
-exports = module.exports = function () {
+exports = module.exports = function (config) {
     return function (req, res) {
         res.render('bookmarklet', {
             title: 'Bookmarklet',
             icon: 'fa-magic',
-            user: req.user
+            user: req.user,
+            domain: config.get('domain')
         });
     };
 };

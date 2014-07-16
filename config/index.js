@@ -24,6 +24,11 @@ var config = module.exports = convict({
         default: 'development',
         env: 'NODE_ENV'
     },
+    domain: {
+        doc: 'The domain the service is running on (http://localhost:3000).',
+        default: 'http://localhost:3000',
+        env: 'DOMAIN'
+    },
     service: {
         name: {
             doc: 'The name of your service/platform.',
