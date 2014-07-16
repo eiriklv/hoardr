@@ -65,6 +65,8 @@ Hoardr is a self hosted open source (basic) alternative to [pocket](http://www.g
  * example: `*`
 * `NODE_ENV` - Environment ('development', 'staging', 'production')
  * example: `development`
+* `DOMAIN` - The domain the service is running on
+ * example: `http://localhost:3000`
 * `CLIENT_API_PATH` - Path to the client REST api (relative)
  * example: `/api`
 * `MONGO_URL` - MongoDB url (including authentication)
