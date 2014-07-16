@@ -37,7 +37,7 @@
     "superagent": "^0.18.0",
     "mandrill-send": "~0.1.0",
     "redis": "~0.11.0",
-    "node-read": "~0.1.4",
+    "node-read": "git+ssh://git@github.com:eiriklv/node-read.git",
     "browserify": "~4.2.0",
     "vinyl-source-stream": "~0.1.1",
     "gulp": "~3.8.0",
