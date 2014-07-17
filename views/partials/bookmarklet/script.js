@@ -23,7 +23,7 @@
             }
         };
         c.onerror = function () {
-            alert('Hoardr.in: Sorry, the bookmarklet does not work on this page because of security policies!');
+            alert('Hoardr.in: Sorry, the bookmarklet does not work on this page because of security policies!\nTo save this page, copy the URL and paste it at: http://localhost:3000/home');
         };
 
         getWantedNode(a).appendChild(c);
