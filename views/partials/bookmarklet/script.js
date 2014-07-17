@@ -22,6 +22,9 @@
                 f(c).remove();
             }
         };
+        c.onerror = function () {
+            alert('Hoardr.in: Sorry, the bookmarklet does not work on this page because of security policies!');
+        };
 
         getWantedNode(a).appendChild(c);
     }
