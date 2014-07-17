@@ -122,6 +122,7 @@ fi
 export SERVICE_NAME="Hoardr Web Service" \
 export DEBUG="*" \
 export NODE_ENV="development" \
+export DOMAIN="http://localhost:3000" \
 export CLIENT_API_PATH="/api" \
 export MONGO_URL="mongodb://localhost/hoardr" \
 export REDIS_URL="redis://localhost:6379" \
