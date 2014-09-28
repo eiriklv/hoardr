@@ -1,6 +1,6 @@
 {{#each this}}
-    <li data-url="{{this._id}}" class="media well">
-        <a class="pull-left" href="/article/{{urlencode this._id}}">
+    <li data-id="{{this._id}}" data-url="{{this.url}}" class="media well">
+        <a class="pull-left" href="/article/{{this._id}}">
             <img
                 class="media-object"
                 alt="{{this.title}}"
@@ -9,7 +9,7 @@
         </a>
 
         <div class="media-body">
-            <h4 class="media-heading"><a href="/article/{{urlencode this._id}}">{{this.title}}</a></h4>
+            <h4 class="media-heading"><a href="/article/{{this._id}}">{{this.title}}</a></h4>
         </div>
         <button type="button" class="close" data-action="delete" aria-hidden="true">×</button>
     </li>

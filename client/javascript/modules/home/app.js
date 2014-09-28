@@ -26,7 +26,7 @@ exports = module.exports = function (templates, api, io) {
                 alertify.confirm('Are you sure you want to delete the article?', function (e) {
                     if (e) {
                         api.article.remove({
-                            url: target.parent().attr('data-url')
+                            _id: target.parent().attr('data-id')
                         }, function (err, result) {
                             if (err) return alertify.error('Could not delete article: ' + err);
                             target.parent().remove();

@@ -1,7 +1,7 @@
 var bcrypt = require('bcryptjs');
 var crypto = require('crypto');
 
-exports = module.exports = function (collection, mongoose, validators) {
+exports = module.exports = function(collection, mongoose, validators) {
     var schema = mongoose.Schema({
         email: {
             type: String, // this is the verified email used to contact the user (must be verified for local signup)
@@ -43,20 +43,23 @@ exports = module.exports = function (collection, mongoose, validators) {
             email: String,
             name: String
         },
-        articles: [{ type: String, ref: 'Article' }]
+        articles: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Article'
+        }]
     });
 
-    schema.methods.generateHash = function (password) {
+    schema.methods.generateHash = function(password) {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null); // this is syncronous (future: async)
     };
 
-    schema.methods.generateAccessToken = function (uid) {
+    schema.methods.generateAccessToken = function(uid) {
         var shasum = crypto.createHash('sha1');
         shasum.update(uid.toString());
         return shasum.digest('hex');
     };
 
-    schema.methods.validPassword = function (password) {
+    schema.methods.validPassword = function(password) {
         return bcrypt.compareSync(password, this.password); // this is syncronous (future: async)
     };
 

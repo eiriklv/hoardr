@@ -1,7 +1,7 @@
 exports = module.exports = function (models) {
-    return function (userId, url, callback) {
-        if (url) {
-            models.Article.findById(url, function (err, article) {
+    return function (userId, id, callback) {
+        if (id) {
+            models.Article.findById(id, function (err, article) {
                 callback(err, article);
             });
         } else {
@@ -10,7 +10,7 @@ exports = module.exports = function (models) {
             .select('articles')
             .populate({
                 path: 'articles',
-                select: 'url title image createdAt',
+                select: '_id url title image createdAt',
                 model: 'Article',
                 options: {
                     sort: '-createdAt'
