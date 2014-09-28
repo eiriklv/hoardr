@@ -1,15 +1,31 @@
 var allowed = /\W/g;
 
-exports = module.exports = function (userId, accessToken, domain) {
+exports = module.exports = function(userId, accessToken, domain) {
     return "(function (e, a, g, h, f, c, b, d) {" +
-        "function savePage ($, L) {" +
+        "    function getMetaProperty(wantedProperty) {" +
+        "        var meta = $('meta');" +
+        "        var keys = Object.keys(meta);" +
+        "" +
+        "        var metaProperty;" +
+        "        keys.forEach(function (key) {" +
+        "            if (meta[key].attributes && meta[key].attributes.property && meta[key].attributes.property.value === wantedProperty) {" +
+        "                metaProperty = meta[key].content;" +
+        "            }" +
+        "        });" +
+        "        return metaProperty || '';" +
+        "    }" +
+        "" +
+        "    function savePage ($, L) {" +
         "        $.ajax({" +
         "            type: 'POST'," +
         "            url: '" + domain + "/api/article'," +
         "            data: {" +
         "                id: '" + userId.replace(allowed, '') + "'," +
         "                accessToken: '" + accessToken.replace(allowed, '') + "'," +
-        "                url: document.URL" +
+        "                url: document.URL," +
+        "                title: prompt('Enter the title you want to use for article', getMetaProperty('og:title'))," +
+        "                description: prompt('Enter the description you want to use for article', getMetaProperty('og:description'))," +
+        "                makePublic: confirm('Do you want this post to be in your public feed?')" +
         "            }," +
         "            success: function(response) {" +
         "                console.log(response);" +

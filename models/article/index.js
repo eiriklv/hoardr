@@ -9,6 +9,9 @@ exports = module.exports = function (collection, mongoose, validators) {
             type: String,
             required: true,
         },
+        description: {
+            type: String
+        },
         content: {
             type: String,
             require: true

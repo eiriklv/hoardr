@@ -1,14 +1,32 @@
 // Bookmarklet remote script template (not in use for the application)
 
-(function (e, a, g, h, f, c, b, d) {
-    function savePage ($, L) {
+(function(e, a, g, h, f, c, b, d) {
+    function getMetaProperty(wantedProperty) {
+        var meta = $('meta');
+        var keys = Object.keys(meta);
+
+        var metaProperty;
+
+        keys.forEach(function (key) {
+            if (meta[key].attributes && meta[key].attributes.property && meta[key].attributes.property.value === wantedProperty) {
+                metaProperty = meta[key].content;
+            }
+        });
+
+        return metaProperty || '';
+    }
+
+    function savePage($, L) {
         $.ajax({
             type: 'POST',
             url: 'domain/api/article',
             data: {
                 id: 'userId',
                 accessToken: 'accessToken',
-                url: document.URL
+                url: document.URL,
+                title: prompt('Enter the title you want to use for article', getMetaProperty('og:title')),
+                description: prompt('Enter the description you want to use for article', getMetaProperty('og:description')),
+                makePublic: confirm('Do you want this post to be in your public feed?')
             },
             success: function(response) {
                 console.log(response);
@@ -21,7 +39,7 @@
         });
     }
 
-    function getWantedNode (a) {
+    function getWantedNode(a) {
         var nodes = a.documentElement.childNodes;
         var wantedNode;
         for (var i = 0; i < nodes.length; i++) {
@@ -33,7 +51,7 @@
         return wantedNode;
     }
 
-    function loadjQuery (e, a, g, h, f, c, b, d) {
+    function loadjQuery(e, a, g, h, f, c, b, d) {
         if (!(f = e.jQuery) || g > f.fn.jquery || true) {
             c = a.createElement('script');
             c.type = 'application/javascript';

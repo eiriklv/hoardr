@@ -1,15 +1,16 @@
 var async = require('async');
 
 exports = module.exports = function (models, helpers, ipc) {
-    return function (userId, url, article, callback) {
+    return function (userId, body, article, callback) {
         var input = {
-            title: article.title,
+            title: body.title || article.title,
+            description: body.description || null,
             content: article.content,
             createdAt: new Date(),
             processed: false
         };
 
-        url = decodeURIComponent(url);
+        var url = decodeURIComponent(body.url);
 
         if (article.image) input.image = article.image;
 
