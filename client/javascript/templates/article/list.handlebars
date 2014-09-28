@@ -1,16 +1,50 @@
+<!--
 {{#each this}}
-    <li data-id="{{this._id}}" data-url="{{this.url}}" class="media well">
-        <a class="pull-left" href="/article/{{this._id}}">
-            <img
-                class="media-object"
-                alt="{{this.title}}"
-                src="{{#if this.image}}{{this.image}}{{else}}/images/placeholder.png{{/if}}"
-                style="width: 64px; height: 64px;">
-        </a>
+    <div class="col-md-3 col-sm-4">
+        <div data-id="{{this._id}}" data-url="{{this.url}}" class="thumbnail">
+            <a class="pull-left" href="/article/{{this._id}}">
+                <img
+                    class="media-object"
+                    alt="{{this.title}}"
+                    src="{{#if this.image}}{{this.image}}{{else}}/images/placeholder.png{{/if}}"
+                    style="width: 64px; height: 64px;">
+            </a>
 
-        <div class="media-body">
-            <h4 class="media-heading"><a href="/article/{{this._id}}">{{this.title}}</a></h4>
+            <div class="media-body">
+                <h4 class="media-heading"><a href="/article/{{this._id}}">{{this.title}}</a></h4>
+            </div>
+            <button type="button" class="close" data-action="delete" aria-hidden="true">×</button>
         </div>
-        <button type="button" class="close" data-action="delete" aria-hidden="true">×</button>
-    </li>
+    </div>
+{{/each}}
+-->
+
+{{#each this}}
+    <div class="col-md-3 col-sm-4 col-xs-12 article-item">
+        <a 
+            data-id="{{this._id}}" 
+            data-url="{{this.url}}"
+            href="/article/{{this._id}}"
+            class="thumbnail article"
+        >
+            {{#if this.image}}
+            <img
+                class="article-image"
+                alt="{{this.title}}"
+                src="{{this.image}}"
+                onerror="this.parentNode.removeChild(this);"
+            />
+            {{/if}}
+
+            <div class="caption">
+                <h3 class="article-header">{{this.title}}</h3>
+                {{#with this.description}}
+                <p class='article-description'>{{this}}</p>
+                {{/with}}
+                <p class='source'>{{parsesource this.url}}</p>
+            </div>
+
+            <button type="button" class="close" data-action="delete" aria-hidden="true">×</button>
+        </a>
+    </div>
 {{/each}}

@@ -5,6 +5,7 @@ exports = module.exports = function () {
         json: require('./json')(),
         tagify: require('./tagify')(),
         capitalize: require('./capitalize')(),
-        urlencode: require('./urlencode')()
+        urlencode: require('./urlencode')(),
+        parsesource: require('./parsesource')()
     };
 };

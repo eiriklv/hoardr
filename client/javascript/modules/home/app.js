@@ -1,6 +1,7 @@
 exports = module.exports = function(templates, api, io) {
     var socket = io.connect();
     var bindToEvent = require('../common/bind-to-event');
+    var msnry;
 
     // bind event handlers to the button panel
     bindToEvent({
@@ -18,6 +19,7 @@ exports = module.exports = function(templates, api, io) {
                             if (err) return alertify.error('Could not delete article: ' + err);
                             target.parent().remove();
                             alertify.success('Article deleted');
+                            updateList();
                         });
                     }
                 });
@@ -25,11 +27,20 @@ exports = module.exports = function(templates, api, io) {
         }
     });
 
+    function createMasonry() {
+        msnry = new Masonry('#main', {});
+    }
+
     function updateList() {
         api.article.get(null, function(err, data) {
-            if (err) return alertify.error(err);
+            var container = $('#main');
 
-            $('#main').empty().append(templates.article.list(data.articles));
+            if (err) return alertify.error(err);
+            container.empty().append(templates.article.list(data.articles));
+
+            imagesLoaded(container, function() {
+                createMasonry();
+            });
         });
     }
 
