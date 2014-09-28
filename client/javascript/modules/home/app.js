@@ -1,46 +1,75 @@
 exports = module.exports = function(templates, api, io) {
     var socket = io.connect();
     var bindToEvent = require('../common/bind-to-event');
-    var msnry;
+    var masonryInit = false;
+    var container = $('#main');
+    container.masonry();
 
-    // bind event handlers to the button panel
-    bindToEvent({
-        element: '#main',
-        eventType: 'click',
-        elementType: '.close',
-        templates: templates,
-        handlers: {
-            delete: function(target, parent, templates) {
-                alertify.confirm('Are you sure you want to delete the article?', function(e) {
-                    if (e) {
-                        api.article.remove({
-                            _id: target.parent().attr('data-id')
-                        }, function(err, result) {
-                            if (err) return alertify.error('Could not delete article: ' + err);
-                            target.parent().remove();
-                            alertify.success('Article deleted');
-                            updateList();
-                        });
-                    }
-                });
+    function bindToEvents() {
+        // bind event handlers to the button panel
+        bindToEvent({
+            element: '#main',
+            eventType: 'click',
+            elementType: '.close',
+            templates: templates,
+            handlers: {
+                delete: function(target, parent, templates) {
+                    alertify.confirm('Are you sure you want to delete the article?', function(e) {
+                        if (e) {
+                            api.article.remove({
+                                _id: target.parent().attr('data-id')
+                            }, function(err, result) {
+                                if (err) return alertify.error('Could not delete article: ' + err);
+                            });
+                        }
+                    });
+                }
             }
-        }
-    });
+        });
+    }
 
-    function createMasonry() {
-        msnry = new Masonry('#main', {});
+    function deleteItem(element) {
+        container.masonry('remove', element);
+        element.remove();
+        container.masonry('layout');
+        alertify.success('Article deleted');
     }
 
     function updateList() {
         api.article.get(null, function(err, data) {
-            var container = $('#main');
-
             if (err) return alertify.error(err);
-            container.empty().append(templates.article.list(data.articles));
+
+            data.articles.forEach(function(article) {
+                var renderedElement = $(templates.article.item(article));
+                container.append(renderedElement);
+                container.masonry('appended', renderedElement);
+                container.masonry('layout');
+            });
 
             imagesLoaded(container, function() {
-                createMasonry();
+                container.masonry('layout');
             });
+        });
+    }
+
+    function appendItem(article) {
+        var existing = $('#article_' + article._id);
+        var renderedElement = $(templates.article.item(article));
+
+        if (existing) {
+            console.log(existing);
+            console.log(renderedElement);
+            container.masonry('remove', existing);
+            existing.replaceWith(renderedElement);
+            container.masonry('prepended', renderedElement);
+            container.masonry('layout');
+        } else {
+            container.prepend(renderedElement);
+            container.masonry('prepended', renderedElement);
+        }
+
+        imagesLoaded(container, function() {
+            container.masonry('layout');
         });
     }
 
@@ -62,37 +91,52 @@ exports = module.exports = function(templates, api, io) {
         inputField.val('');
     }
 
-    // bind onclick event to add button
-    $('#add-button').click(function() {
-        addUrl();
-    });
+    function handleSockets() {
+        // handle socket.io connection
+        socket.on('connect', function() {
+            console.log('connected to socket.io');
+        });
 
-    // process input when pressing enter in add field
-    $("#add-field").keyup(function(e) {
-        if (e.keyCode == 13) addUrl();
-        e.preventDefault();
-    });
+        // initialize procedure to ensure that connection is established
+        socket.on('init', function(data) {
+            console.log('socket.io initialized..');
+            socket.emit('init', 'response: ' + data);
+        });
 
-    // handle socket.io connection
-    socket.on('connect', function() {
-        console.log('connected to socket.io');
-    });
+        // update the article list when the update event is emitted
+        socket.on('update', function(data) {
+            if (data.action == 'add') {
+                alertify.success('\'' + data.article.title + '\'' + ' - was updated in your storage');
+                appendItem(data.article);
+            }
 
-    // initialize procedure to ensure that connection is established
-    socket.on('init', function(data) {
-        console.log('socket.io initialized..');
-        socket.emit('init', 'response: ' + data);
-    });
+            if (data.action == 'remove') {
+                var element = $('#article_' + data.article._id)
+                if (element) deleteItem(element);
+            }
+        });
 
-    // update the article list when the update event is emitted
-    socket.on('update', function(data) {
-        alertify.success('\'' + data.article.title + '\'' + ' - was updated in your storage');
-        updateList();
-    });
+        socket.on('disconnect', function() {
+            console.log('socket disconnected');
+        });
+    }
 
-    socket.on('disconnect', function() {
-        console.log('socket disconnected');
-    });
+    function handleEvents() {
+        // bind onclick event to add button
+        $('#add-button').click(function() {
+            addUrl();
+        });
 
+        // process input when pressing enter in add field
+        $("#add-field").keyup(function(e) {
+            if (e.keyCode == 13) addUrl();
+            e.preventDefault();
+        });
+    }
+
+    // init all the things
+    bindToEvents();
+    handleSockets();
+    handleEvents();
     updateList();
 };

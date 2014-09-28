@@ -24,6 +24,7 @@ exports = module.exports = function(models, helpers, ipc, rpc) {
             ],
             function(err, article) {
                 rpc.publisher.publish('update', JSON.stringify({
+                    action: 'add',
                     id: userId,
                     article: article
                 }));

@@ -1,3 +1,4 @@
 exports = module.exports = {
-    list: require('./list.handlebars')
+    list: require('./list.handlebars'),
+    item: require('./item.handlebars')
 };

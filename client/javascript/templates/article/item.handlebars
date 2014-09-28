@@ -1,11 +1,10 @@
-{{#each this}}
-    <div id="article_{{this._id}}" class="col-md-3 col-sm-4 col-xs-12 article-item">
-        <a 
-            data-id="{{this._id}}" 
-            data-url="{{this.url}}"
-            href="/article/{{this._id}}"
-            class="thumbnail article"
-        >
+<div id="article_{{this._id}}" class="col-md-3 col-sm-4 col-xs-12 article-item">
+    <a 
+        data-id="{{this._id}}"
+        data-url="{{this.url}}"
+        href="/article/{{this._id}}"
+        class="thumbnail article"
+    >
             {{#if this.image}}
             <img
                 class="article-image"
@@ -25,5 +24,4 @@
 
             <button type="button" class="close" data-action="delete" aria-hidden="true">×</button>
         </a>
-    </div>
-{{/each}}
+</div>

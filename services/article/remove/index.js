@@ -1,10 +1,10 @@
 var async = require('async');
 
-exports = module.exports = function (models) {
-    return function (userId, body, callback) {
+exports = module.exports = function(models, helpers, ipc, rpc) {
+    return function(userId, body, callback) {
         async.waterfall([
             function findUser(callback) {
-                models.User.findById(userId, function (err, user) {
+                models.User.findById(userId, function(err, user) {
                     callback(err, user)
                 });
             },
@@ -14,12 +14,12 @@ exports = module.exports = function (models) {
 
                 user.articles.pull(body._id);
 
-                user.save(function (err, product) {
+                user.save(function(err, product) {
                     callback(err, product);
                 });
             },
             function removeArticleFromCollection(user, callback) {
-                models.Article.findByIdAndRemove(body._id, function (err, article) {
+                models.Article.findByIdAndRemove(body._id, function(err, article) {
                     callback(err, {
                         article: article,
                         user: user
@@ -27,6 +27,12 @@ exports = module.exports = function (models) {
                 });
             }
         ], function(err, result) {
+            rpc.publisher.publish('update', JSON.stringify({
+                action: 'remove',
+                id: userId,
+                article: result.article
+            }));
+
             callback(err, result);
         });
     };
