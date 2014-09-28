@@ -10,7 +10,7 @@ exports = module.exports = function (models) {
             .select('articles')
             .populate({
                 path: 'articles',
-                select: '_id url title image createdAt',
+                select: '_id url title description image createdAt',
                 model: 'Article',
                 options: {
                     sort: '-createdAt'

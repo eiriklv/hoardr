@@ -46,6 +46,7 @@ exports = module.exports = function(templates, api, io) {
                 container.masonry('layout');
             });
 
+            // re-layout when all images are loaded
             imagesLoaded(container, function() {
                 container.masonry('layout');
             });
@@ -56,9 +57,7 @@ exports = module.exports = function(templates, api, io) {
         var existing = $('#article_' + article._id);
         var renderedElement = $(templates.article.item(article));
 
-        if (existing) {
-            console.log(existing);
-            console.log(renderedElement);
+        if (existing && existing.length > 0) {
             container.masonry('remove', existing);
             existing.replaceWith(renderedElement);
             container.masonry('prepended', renderedElement);
@@ -68,9 +67,12 @@ exports = module.exports = function(templates, api, io) {
             container.masonry('prepended', renderedElement);
         }
 
+        // re-layout when all images are loaded
         imagesLoaded(container, function() {
             container.masonry('layout');
         });
+
+        alertify.success('\'' + article.title + '\'' + ' - was updated in your storage');
     }
 
     function addUrl() {
@@ -106,7 +108,6 @@ exports = module.exports = function(templates, api, io) {
         // update the article list when the update event is emitted
         socket.on('update', function(data) {
             if (data.action == 'add') {
-                alertify.success('\'' + data.article.title + '\'' + ' - was updated in your storage');
                 appendItem(data.article);
             }
 
