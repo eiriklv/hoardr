@@ -1,3 +1,3 @@
-exports = module.exports = function (templates, services) {
+exports = module.exports = function(templates, services) {
 
 };

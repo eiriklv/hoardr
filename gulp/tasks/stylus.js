@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var stylus = require('gulp-stylus');
 var cssmin = require('gulp-cssmin');
 var nib = require('nib');
-var NopStream = require('../util/no-op-stream');
+var NopStream = require('../util/nop-stream');
 
 var production = process.env.NODE_ENV === 'production';
 

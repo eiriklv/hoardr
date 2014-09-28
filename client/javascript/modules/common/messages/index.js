@@ -1,3 +1,3 @@
-exports = module.exports = function () {
+exports = module.exports = function() {
     $(".alert").alert(); // enable bootstrap alerts
 };

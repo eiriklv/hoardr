@@ -1,16 +1,5 @@
 exports = module.exports = function(templates, api) {
-
-    function bindToEvent(options) {
-        var parent = $(options.element);
-        parent.on(options.eventType, options.elementType, function(event) {
-            event.preventDefault();
-
-            var element = $(event.target);
-            var action = element.attr('data-action');
-
-            if (options.handlers[action]) options.handlers[action](element, parent, options.templates);
-        });
-    }
+    var bindToEvent = require('../common/bind-to-event');
 
     // bind event handlers to the button panel
     bindToEvent({
@@ -30,7 +19,7 @@ exports = module.exports = function(templates, api) {
                 });
             },
             delete: function(target, parent, templates) {
-                alertify.prompt('Are you sure you want to delete your account? Type \'12345678\' to confirm', function (e, str) {
+                alertify.prompt('Are you sure you want to delete your account? Type \'12345678\' to confirm', function(e, str) {
                     if (e && (str === '12345678')) window.location = '/auth/local/unlink';
                 }, '');
             }

@@ -1,6 +1,6 @@
 var browserify = require('browserify');
 var streamify = require('gulp-streamify');
-var NopStream = require('../util/no-op-stream');
+var NopStream = require('../util/nop-stream');
 var uglify = require('gulp-uglify');
 var gulp = require('gulp');
 var handleErrors = require('../util/handle-errors');

@@ -6,6 +6,7 @@ var debug = require('debug')('hoardr:setup');
 
 // express dependencies
 var morgan = require('morgan');
+var compress = require('compression');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var methodOverride = require('method-override');
@@ -22,7 +23,8 @@ module.exports.configureExpress = function (options, app, config) {
     // json pretty response
     app.set('json spaces', 2);
 
-    // express common config
+    // express common 
+    app.use(compress());
     app.use(options.express.static(options.dir + '/client/public'));
     app.use(morgan('dev'));
     app.use(options.cookieParser());
