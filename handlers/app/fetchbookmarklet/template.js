@@ -2,7 +2,7 @@ var allowed = /\W/g;
 
 exports = module.exports = function(userId, accessToken, domain) {
     return "(function (e, a, g, h, f, c, b, d) {" +
-        "    function getMetaProperty(wantedProperty) {" +
+        "    function getMetaProperty($, wantedProperty) {" +
         "        var meta = $('meta');" +
         "        var keys = Object.keys(meta);" +
         "" +
@@ -23,8 +23,8 @@ exports = module.exports = function(userId, accessToken, domain) {
         "                id: '" + userId.replace(allowed, '') + "'," +
         "                accessToken: '" + accessToken.replace(allowed, '') + "'," +
         "                url: document.URL," +
-        "                title: prompt('Enter the title you want to use for article', getMetaProperty('og:title'))," +
-        "                description: prompt('Enter the description you want to use for article', getMetaProperty('og:description'))," +
+        "                title: prompt('Enter the title you want to use for article', getMetaProperty($, 'og:title'))," +
+        "                description: prompt('Enter the description you want to use for article', getMetaProperty($, 'og:description'))," +
         "                makePublic: confirm('Do you want this post to be in your public feed?')" +
         "            }," +
         "            success: function(response) {" +

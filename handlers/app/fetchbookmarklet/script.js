@@ -1,7 +1,7 @@
 // Bookmarklet remote script template (not in use for the application)
 
 (function(e, a, g, h, f, c, b, d) {
-    function getMetaProperty(wantedProperty) {
+    function getMetaProperty($, wantedProperty) {
         var meta = $('meta');
         var keys = Object.keys(meta);
 
@@ -24,8 +24,8 @@
                 id: 'userId',
                 accessToken: 'accessToken',
                 url: document.URL,
-                title: prompt('Enter the title you want to use for article', getMetaProperty('og:title')),
-                description: prompt('Enter the description you want to use for article', getMetaProperty('og:description')),
+                title: prompt('Enter the title you want to use for article', getMetaProperty($, 'og:title')),
+                description: prompt('Enter the description you want to use for article', getMetaProperty($, 'og:description')),
                 makePublic: confirm('Do you want this post to be in your public feed?')
             },
             success: function(response) {
