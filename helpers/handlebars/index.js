@@ -6,6 +6,7 @@ exports = module.exports = function () {
         tagify: require('./tagify')(),
         capitalize: require('./capitalize')(),
         urlencode: require('./urlencode')(),
+        urldecode: require('./urldecode')(),
         parsesource: require('./parsesource')()
     };
 };

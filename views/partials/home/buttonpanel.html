@@ -2,7 +2,11 @@
     <div class="thumbnail">
         <!-- input group -->
         <div class="input-group">
+            {{#if url}}
+            <input id="add-field" type="text" class="form-control" placeholder="Paste URL here" value="{{urldecode url}}">
+            {{else}}
             <input id="add-field" type="text" class="form-control" placeholder="Paste URL here">
+            {{/if}}
             <span class="input-group-btn">
                 <button id="add-button" class="btn btn-info" data-action="add" type="button">Add item!</button>
             </span>

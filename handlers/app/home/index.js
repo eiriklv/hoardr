@@ -3,7 +3,8 @@ exports = module.exports = function () {
         res.render('home', {
             title: 'Home',
             icon: 'fa-magic',
-            user : req.user // get the user out of session and pass to template
+            user: req.user, // get the user out of session and pass to template
+            url: req.query.url
         });
     };
 };
