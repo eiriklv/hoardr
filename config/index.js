@@ -29,6 +29,11 @@ var config = module.exports = convict({
         default: 'http://localhost:3000',
         env: 'DOMAIN'
     },
+    secure_domain: {
+        doc: 'The https endpoint of the current domain (for the bookmarklet)',
+        default: 'http://localhost:3000',
+        env: 'SECURE_DOMAIN'
+    },
     service: {
         name: {
             doc: 'The name of your service/platform.',

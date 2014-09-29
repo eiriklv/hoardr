@@ -19,7 +19,7 @@
     function savePage($, L) {
         $.ajax({
             type: 'POST',
-            url: 'domain/api/article',
+            url: 'secure_domain/api/article',
             data: {
                 id: 'userId',
                 accessToken: 'accessToken',
