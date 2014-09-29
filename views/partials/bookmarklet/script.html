@@ -14,7 +14,7 @@ javascript:(function (e, a, g, h, f, c, b, d) {
     function loadRemoteScript (e, a, g, h, f, c, b, d) {
         c = a.createElement('script');
         c.type = 'application/javascript';
-        c.src = '{{domain}}/fetchbookmarklet/{{user.id}}/{{user.accessToken}}';
+        c.src = '{{secureDomain}}/fetchbookmarklet/{{user.id}}/{{user.accessToken}}';
         c.onload = c.onreadystatechange = function() {
             if (!b && (!(d = this.readyState) || d == 'loaded' || d == 'complete')) {
                 f(c).remove();
