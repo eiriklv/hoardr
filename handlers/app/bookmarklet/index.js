@@ -4,7 +4,7 @@ exports = module.exports = function (config) {
             title: 'Bookmarklet',
             icon: 'fa-magic',
             user: req.user,
-            domain: config.get('domain')
+            domain: config.get('secure_domain')
         });
     };
 };
