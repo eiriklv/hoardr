@@ -67,8 +67,8 @@ Hoardr is a self hosted open source (basic) alternative to [pocket](http://www.g
  * example: `development`
 * `DOMAIN` - The domain the service is running on
  * example: `http://localhost:3000`
-* `SECURE_DOMAIN` - HTTPS endpoint of the domain (HTTP if developing locally)
- * example: `http://localhost:3000` if locally, or `https://yourdomain.com` in production
+* `SECURE_DOMAIN` - HTTPS endpoint of the domain (only for production)
+ * example: `https://yourdomain.com`
 * `CLIENT_API_PATH` - Path to the client REST api (relative)
  * example: `/api`
 * `MONGO_URL` - MongoDB url (including authentication)
