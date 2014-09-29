@@ -23,8 +23,8 @@ exports = module.exports = function(userId, accessToken, domain) {
         "                id: '" + userId.replace(allowed, '') + "'," +
         "                accessToken: '" + accessToken.replace(allowed, '') + "'," +
         "                url: document.URL," +
-        "                title: prompt('Enter the title you want to use for article', getMetaProperty($, 'og:title'))," +
-        "                description: prompt('Enter the description you want to use for article', getMetaProperty($, 'og:description'))," +
+        "                title: prompt('Enter the custom title you want to use for this post (optional)', getMetaProperty($, 'og:title'))," +
+        "                description: prompt('Enter the custom description you want to use for this post (optional)', getMetaProperty($, 'og:description'))," +
         "                isPublic: confirm('Do you want this post to be in your public feed?')" +
         "            }," +
         "            success: function(response) {" +

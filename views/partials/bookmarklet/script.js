@@ -23,7 +23,9 @@
             }
         };
         c.onerror = function () {
-            alert('Hoardr.in: Sorry, the bookmarklet does not work on this page because of security policies!\nTo save this page, copy the URL and paste it at: http://localhost:3000/home');
+            alert('Hoardr.in: Sorry, the bookmarklet does not work on this page because of security policies!\n We will now take you to your Hoardr.in account.');
+            var currentLocation = window.location;
+            window.location = 'http://localhost:3000/home?url=' + encodeURIComponent(currentLocation);
         };
 
         getWantedNode(a).appendChild(c);
