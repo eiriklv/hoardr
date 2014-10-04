@@ -28,7 +28,7 @@ exports = module.exports = function (collection, mongoose, validators) {
             default: Date.now,
             required: true
         },
-        processed: {
+        archived: {
             type: Boolean,
             default: false,
             required: true
