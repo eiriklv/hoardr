@@ -10,7 +10,6 @@ exports = module.exports = function(models, helpers, ipc) {
             description: body.description || null,
             content: article.content,
             createdAt: new Date(),
-            processed: false,
             isPublic: body.isPublic,
             owner: userId
         };
