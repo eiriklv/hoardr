@@ -1,9 +1,12 @@
 exports = module.exports = function(templates, api, io) {
     var socket = io.connect();
     var bindToEvent = require('../common/bind-to-event');
+    var deviceWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var masonryInit = false;
     var container = $('#main');
-    container.masonry();
+    var masonryOptions = deviceWidth >= 768 ? {} : { transitionDuration: 0 };
+
+    container.masonry(masonryOptions);
 
     function bindToEvents() {
         // bind event handlers to the button panel
