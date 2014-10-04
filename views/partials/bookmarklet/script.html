@@ -23,7 +23,7 @@ javascript:(function (e, a, g, h, f, c, b, d) {
         c.onerror = function () {
             alert('Hoardr.in: Sorry, the bookmarklet does not work on this page because of security policies!\n We will now take you to your Hoardr.in account.');
             var currentLocation = window.location;
-            window.location = '{{domain}}/home?url=' + encodeURIComponent(currentLocation);
+            window.location = '{{domain}}/feed?url=' + encodeURIComponent(currentLocation);
         };
 
         getWantedNode(a).appendChild(c);
