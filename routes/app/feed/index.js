@@ -4,7 +4,7 @@ exports = module.exports = function (express, middleware, handlers, path) {
     router.route(path)
         .all(middleware.isLoggedIn)
         .all(middleware.isVerified)
-        .get(handlers.home);
+        .get(handlers.feed);
 
     return router;
 };

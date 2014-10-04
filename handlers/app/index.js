@@ -1,7 +1,7 @@
 exports = module.exports = function (services, config) {
     return {
         landing: require('./landing')(),
-        home: require('./home')(),
+        feed: require('./feed')(),
         bookmarklet: require('./bookmarklet')(config),
         fetchbookmarklet: require('./fetchbookmarklet')(config),
         article: require('./article')(services),
