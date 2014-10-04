@@ -39,7 +39,7 @@ module.exports.configureExpress = function(options, app, config) {
     app.use(options.passport.initialize());
     app.use(options.passport.session());
     app.use(flash());
-    app.use(favicon(options.dir + '/client/public/favicon.ico'));
+    app.use(favicon(options.dir + '/client/public/images/icon/favicon.ico'));
 
     // express dev config
     if ('development' == config.get('env')) {
