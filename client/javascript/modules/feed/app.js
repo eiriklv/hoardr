@@ -42,10 +42,9 @@ exports = module.exports = function(templates, api, io) {
             data.articles.forEach(function(article) {
                 var renderedElement = $(templates.article.item(article));
                 container.append(renderedElement);
+                container.masonry('appended', renderedElement);
+                container.masonry('layout');
             });
-
-            container.masonry('appended', $(container.children()));
-            container.masonry('layout');
 
             // re-layout when all images are loaded
             imagesLoaded(container, function() {
