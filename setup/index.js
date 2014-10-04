@@ -14,7 +14,7 @@ var errorHandler = require('errorhandler');
 var flash = require('express-flash');
 
 // configure express
-module.exports.configureExpress = function (options, app, config) {
+module.exports.configureExpress = function(options, app, config) {
     // set view engine and parsers
     app.set('views', options.dir + '/views');
     app.set('view engine', 'html');
@@ -31,7 +31,11 @@ module.exports.configureExpress = function (options, app, config) {
     app.use(bodyParser.urlencoded());
     app.use(bodyParser.json());
     app.use(methodOverride());
-    app.use(options.session({ secret: config.get('server.secret'), store: options.store, key: config.get('session.key') }));
+    app.use(options.session({
+        secret: config.get('server.secret'),
+        store: options.store,
+        key: config.get('session.key')
+    }));
     app.use(options.passport.initialize());
     app.use(options.passport.session());
     app.use(flash());
@@ -39,25 +43,29 @@ module.exports.configureExpress = function (options, app, config) {
 
     // express dev config
     if ('development' == config.get('env')) {
-       app.use(errorHandler());
+        app.use(errorHandler());
     }
 };
 
 // handle express errors
-module.exports.handleExpressError = function (app) {
+module.exports.handleExpressError = function(app) {
     // handle 404 not found
-    app.use(function(req, res, next){
+    app.use(function(req, res, next) {
         res.status(404);
 
         // respond with html page
         if (req.accepts('html')) {
-            res.render('404', { url: req.url });
+            res.render('404', {
+                url: req.url
+            });
             return;
         }
 
         // respond with json
         if (req.accepts('json')) {
-            res.send({ error: 'Not found' });
+            res.send({
+                error: 'Not found'
+            });
             return;
         }
 
@@ -66,30 +74,30 @@ module.exports.handleExpressError = function (app) {
     });
 
     // handling other errors
-    app.use(function(err, req, res, next){
+    app.use(function(err, req, res, next) {
         console.error(err.stack);
         res.send(500, 'Something broke!');
     });
 };
 
 // register handlebars partials
-module.exports.registerPartials = function (path, handlebars) {
+module.exports.registerPartials = function(path, handlebars) {
     var partials = path;
-    fs.readdirSync(partials).forEach(function (folder) {
+    fs.readdirSync(partials).forEach(function(folder) {
         var extension = folder.split('.')[1];
         if (extension != undefined) return;
-        fs.readdirSync(partials+folder).forEach(function (file) {
+        fs.readdirSync(partials + folder).forEach(function(file) {
             var extension = file.split('.')[1];
-            if(extension != 'html') return;
+            if (extension != 'html') return;
             var source = fs.readFileSync(partials + folder + '/' + file, "utf8");
-            var partial = folder+'-'+file.split('.')[0];
+            var partial = folder + '-' + file.split('.')[0];
             handlebars.registerPartial(partial, source);
         });
     });
 };
 
 // register handlebars block helpers
-module.exports.registerHelpers = function (helpers, handlebars) {
+module.exports.registerHelpers = function(helpers, handlebars) {
     for (var helper in helpers) {
         if (helpers.hasOwnProperty(helper)) {
             handlebars.registerHelper(helper, helpers[helper]);
@@ -99,21 +107,18 @@ module.exports.registerHelpers = function (helpers, handlebars) {
 };
 
 // redis pubsub
-module.exports.pubsub = function (redis, config){
-    // init redis connections
+module.exports.pubsub = function(redis, config) {
     var subscriber, publisher;
+
     if ('production' == config.get('env')) {
-        // running on heroku with rediscloud
         var redisURL = url.parse(config.get('database.redis.url'));
-        subscriber = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true}); // subscriber connection
-        publisher = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true}); // publisher connection
+        subscriber = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
+        publisher = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
         if (redisURL.auth) subscriber.auth(redisURL.auth.split(":")[1]);
         if (redisURL.auth) publisher.auth(redisURL.auth.split(":")[1]);
-    }
-    else {
-        // running in local dev (localhost:6379)
-        subscriber = redis.createClient(); // subscriber connection
-        publisher = redis.createClient(); // publisher connection
+    } else {
+        subscriber = redis.createClient();
+        publisher = redis.createClient();
     }
 
     return {
@@ -123,7 +128,7 @@ module.exports.pubsub = function (redis, config){
 };
 
 // create session store
-module.exports.sessions = function (SessionStore, config) {
+module.exports.sessions = function(SessionStore, config) {
     var authObject;
 
     if (config.get('database.redis.url')) {
@@ -142,44 +147,44 @@ module.exports.sessions = function (SessionStore, config) {
 };
 
 // connect to backend store (db)
-module.exports.db = function (mongoose, config){
+module.exports.db = function(mongoose, config) {
     function connect() {
         mongoose.connect(config.get('database.mongo.url'));
     }
 
     // connection is open and ready
-    mongoose.connection.on('open', function (ref) {
+    mongoose.connection.on('open', function(ref) {
         debug('open connection to mongo server.');
     });
 
     // mongoose is connected to server
-    mongoose.connection.on('connected', function (ref) {
+    mongoose.connection.on('connected', function(ref) {
         debug('connected to mongo server.');
     });
 
     // mongoose has disconnected
-    mongoose.connection.on('disconnected', function (ref) {
+    mongoose.connection.on('disconnected', function(ref) {
         debug('disconnected from mongo server.');
-
         debug('retrying connection in 2 seconds..');
+
         setTimeout(function() {
             connect();
         }.bind(this), 2000);
     });
 
     // mongoose connection has closed
-    mongoose.connection.on('close', function (ref) {
+    mongoose.connection.on('close', function(ref) {
         debug('closed connection to mongo server');
     });
 
     // error has occured for mongoose connection
-    mongoose.connection.on('error', function (err) {
+    mongoose.connection.on('error', function(err) {
         debug('error connection to mongo server!');
         debug(err);
     });
 
     // mongoose is reconnecting
-    mongoose.connection.on('reconnect', function (ref) {
+    mongoose.connection.on('reconnect', function(ref) {
         debug('reconnect to mongo server.');
     });
 
@@ -188,8 +193,8 @@ module.exports.db = function (mongoose, config){
 };
 
 // run application
-module.exports.run = function (server, config) {
-    server.listen(config.get('server.port'), function () {
+module.exports.run = function(server, config) {
+    server.listen(config.get('server.port'), function() {
         debug('listening on port %d'.green, server.address().port);
     });
 };
