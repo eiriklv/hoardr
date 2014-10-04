@@ -62,6 +62,10 @@ iframe
     width 100%
     height auto
 
+.limit-container
+    margin auto
+    max-width 700px
+
 #content
     p
         font-family "Merriweather", "Helvetica Neue", Helvetica, Arial, sans-serif
@@ -91,7 +95,18 @@ pre, code
 
 .header-title
     word-wrap break-word
-    margin 25px 0 25px 0
+
+.header-title h1
+    font-size 52px
+    font-weight 700
+
+@media (max-width: 768px)
+    .header-title h1
+        font-size 46px
+
+@media (max-width: 480px)
+    .header-title h1
+        font-size 36px
 
 p.source
     margin 10px 0 0 0

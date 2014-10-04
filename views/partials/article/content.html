@@ -1,16 +1,16 @@
-<div id="main" class="container">
-    {{#with article.image}}
-    <div class="row">
-        <img class="header-image" src="{{this}}" style="width:100%;">
-    </div>
-    {{/with}}
+{{#with article.image}}
+<div class="row">
+    <img class="header-image" src="{{this}}" style="width:100%;">
+</div>
+{{/with}}
 
-    <div class="text-center header-title">
+<div id="main" class="container">
+    <div class="text-center header-title limit-container">
         <h1>{{article.title}}</h1>
         <a href="{{article.url}}">Visit the original</a>
     </div>
 
-    <div id="content" class="">
+    <div id="content" class="limit-container">
         {{{article.content}}}
     </div>
 </div>
