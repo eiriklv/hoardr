@@ -35,8 +35,8 @@ function createBundles(bundles) {
 
 gulp.task('browserify', function() {
     createBundles([{
-        input: ['./client/javascript/home.js'],
-        output: 'home.js',
+        input: ['./client/javascript/feed.js'],
+        output: 'feed.js',
         extensions: ['.handlebars'],
         destination: './client/public/javascript/'
     }, {

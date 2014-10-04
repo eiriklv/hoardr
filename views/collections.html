@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    {{> common-title }}
+
+    <!-- stylesheets -->
+    {{> common-essential-stylesheets }}
+
+    <!-- custom body style -->
+    <style>
+        body { padding-bottom: 40px; }
+    </style>
+
+</head>
+<body id="collections">
+
+    <!-- header -->
+    {{> common-header }}
+
+    <!-- session flash messages -->
+    {{> common-flash-messages }}
+
+    <!-- button panel -->
+    {{> collections-buttonpanel }}
+
+    <!-- main content -->
+    {{> collections-content }}
+
+    <!-- essential scripts -->
+    {{> common-essential-scripts }}
+
+    <!-- main js app -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+    <script src="/javascript/collections.js"></script>
+
+</body>
+</html>
