@@ -3,7 +3,7 @@ exports = module.exports = function (app, express, path) {
 
     router.route(path)
         .all(function (req, res) {
-            res.send(200);
+            res.status(200).send();
         });
 
     app.use(router);
