@@ -12,8 +12,8 @@ exports = module.exports = function (resource) {
         console.log(req.body);
 
         resource.remove(userId, req.body, function (err, result) {
-            if (err) return res.send(400, err);
-            res.send(200, result);
+            if (err) return res.status(400).send(err);
+            res.status(200).send(result);
         });
     };
 };

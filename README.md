@@ -122,7 +122,7 @@ if [ $1 ]; then
 fi
 
 export SERVICE_NAME="Hoardr Web Service" \
-export DEBUG="*" \
+export DEBUG="*,-engine:polling" \
 export NODE_ENV="development" \
 export DOMAIN="http://localhost:3000" \
 export SECURE_DOMAIN="https://localhost:3000" \

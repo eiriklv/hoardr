@@ -16,13 +16,13 @@ exports = module.exports = function (services) {
                 });
             }
         ], function (err, authorized) {
-            if (err) return res.send(401, { error: err });
+            if (err) return res.status(401).send({ error: err });
 
             // get authenticated either by session or access-token
             if (authorized) {
                 return next();
             } else {
-                return res.send(401, { error: 'not authorized for api access' });
+                return res.status(401).send({ error: 'not authorized for api access' });
             }
         });
     };

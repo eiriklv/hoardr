@@ -3,6 +3,7 @@ var fs = require('fs');
 var url = require('url');
 var colors = require('colors');
 var debug = require('debug')('hoardr:setup');
+var util = require('util');
 
 // express dependencies
 var morgan = require('morgan');
@@ -13,14 +14,15 @@ var methodOverride = require('method-override');
 var errorHandler = require('errorhandler');
 var flash = require('express-flash');
 
+// socket.io dependecies
+var socketHandshake = require('socket.io-handshake');
+
 // configure express
 module.exports.configureExpress = function(options, app, config) {
     // set view engine and parsers
     app.set('views', options.dir + '/views');
     app.set('view engine', 'html');
     app.engine('.html', options.handlebars.__express);
-
-    // json pretty response
     app.set('json spaces', 2);
 
     // express common 
@@ -28,23 +30,45 @@ module.exports.configureExpress = function(options, app, config) {
     app.use(options.express.static(options.dir + '/client/public'));
     app.use(morgan('dev'));
     app.use(options.cookieParser());
-    app.use(bodyParser.urlencoded());
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
     app.use(bodyParser.json());
     app.use(methodOverride());
     app.use(options.session({
         secret: config.get('server.secret'),
         store: options.store,
-        key: config.get('session.key')
+        name: config.get('session.key'),
+        resave: true,
+        saveUninitialized: true
     }));
     app.use(options.passport.initialize());
     app.use(options.passport.session());
     app.use(flash());
     app.use(favicon(options.dir + '/client/public/images/icon/favicon.ico'));
 
+    // handle when session store disconnects
+    app.use(function(req, res, next) {
+        if (!req.session) {
+            return next(new Error('session store not available')) // handle error
+        }
+        next();
+    });
+
     // express dev config
     if ('development' == config.get('env')) {
         app.use(errorHandler());
     }
+};
+
+// configure socket.io
+module.exports.configureSockets = function(io, config, options) {
+    io.use(socketHandshake({
+        store: options.sessionStore,
+        key: config.get('session.key'),
+        secret: config.get('server.secret'),
+        parser: options.cookieParser()
+    }));
 };
 
 // handle express errors
@@ -107,19 +131,32 @@ module.exports.registerHelpers = function(helpers, handlebars) {
 };
 
 // redis pubsub
-module.exports.pubsub = function(redis, config) {
+module.exports.pubsub = function (redis, config){
+    // init redis connections
     var subscriber, publisher;
-
     if ('production' == config.get('env')) {
+        // running on heroku with rediscloud
         var redisURL = url.parse(config.get('database.redis.url'));
-        subscriber = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
-        publisher = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
+        subscriber = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true}); // subscriber connection
+        publisher = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true}); // publisher connection
         if (redisURL.auth) subscriber.auth(redisURL.auth.split(":")[1]);
         if (redisURL.auth) publisher.auth(redisURL.auth.split(":")[1]);
-    } else {
-        subscriber = redis.createClient();
-        publisher = redis.createClient();
     }
+    else {
+        // running in local dev (localhost:6379)
+        subscriber = redis.createClient(); // subscriber connection
+        publisher = redis.createClient(); // publisher connection
+    }
+
+    // handle subscriber connection error
+    subscriber.on('error', function(err) {
+        debug('Redis subscriber error: ' + util.inspect(err));
+    });
+
+    // handle publisher connection error
+    publisher.on('error', function(err) {
+        debug('Redis published error: ' + util.inspect(err));
+    });
 
     return {
         subscriber: subscriber,
@@ -128,10 +165,10 @@ module.exports.pubsub = function(redis, config) {
 };
 
 // create session store
-module.exports.sessions = function(SessionStore, config) {
+module.exports.sessions = function(SessionStore, session, config) {
     var authObject;
 
-    if (config.get('database.redis.url')) {
+    if (config.get('env') == 'production') {
         var parsedUrl = url.parse(config.get('database.redis.url'));
         authObject = {
             prefix: config.get('database.redis.prefix'),
@@ -141,9 +178,11 @@ module.exports.sessions = function(SessionStore, config) {
             pass: parsedUrl.auth ? parsedUrl.auth.split(":")[1] : null,
             secret: config.get('server.secret')
         };
-    }
 
-    return new SessionStore(authObject);
+        return new SessionStore(authObject);
+    } else {
+        return (new session.MemoryStore());
+    }
 };
 
 // connect to backend store (db)
