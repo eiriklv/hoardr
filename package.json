@@ -44,7 +44,7 @@
     "morgan": "1.2.x",
     "nib": "1.0.x",
     "node-jsx": "0.11.0",
-    "node-read": "git+https://878c3337f2ae0290ec65e461c1b6f7cc8e26c0c6:x-oauth-basic@github.com/eiriklv/node-read.git",
+    "node-read": "eiriklv/node-read",
     "passport": "0.2.1",
     "passport-facebook": "1.0.3",
     "passport-google-oauth": "0.1.5",
