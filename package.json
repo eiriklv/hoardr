@@ -40,7 +40,7 @@
     "mocha": "1.21.x",
     "mocha-lcov-reporter": "0.0.x",
     "mockgoose": "1.10.x",
-    "mongoose": "3.8.16",
+    "mongoose": "4.1.x",
     "morgan": "1.2.x",
     "nib": "1.0.x",
     "node-jsx": "0.11.0",
