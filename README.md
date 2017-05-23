@@ -28,7 +28,7 @@ Hoardr is a self hosted open source (basic) alternative to [pocket](http://www.g
 * [node-read](https://github.com/bndr/node-read)
 
 #### Testing:
-* [mocha](http://visionmedia.github.io/mocha/)
+* [mocha](http://mochajs.org/)
 * [chai](http://chaijs.com/)
 * [sinon](http://sinonjs.org/)
 
